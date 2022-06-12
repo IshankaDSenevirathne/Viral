@@ -1,0 +1,115 @@
+const mongoose = require('mongoose');
+
+const orderSchema = new mongoose.Schema({
+    orderId:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true
+    },
+    clientName:{
+        type:String,
+        required:[true,'Please enter your name'],
+        trim:true
+    },
+    homeAddress:{
+        city:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        country:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        line1:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        line2:{
+            type:String,
+            trim:true,
+            default:undefined
+        },
+        postalcode:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        state:{
+            type:String,
+            trim:true,
+            default:undefined
+        }
+    },
+    emailAddress:{
+        type:String,
+        required:[true,'Please enter your Email'],
+        trim:true
+    },
+    phoneNumber:{
+        type:Number,
+        required:true
+    },
+    orderDetails:{
+        products:[
+            {
+                productName:{
+                    type:String,
+                    trim:true,
+                    required:true
+                },
+                productSize:{
+                    type:String,
+                    trim:true,
+                    required:true
+                },
+                productColor:{
+                    type:String,
+                    trim:true,
+                    required:true,
+                    default:"black"
+                },
+                productQuantity:{
+                    type:Number,
+                    required:true
+                },
+                productPrice:{
+                    type:Number,
+                    required:true
+                },
+                reviewDetails:{
+                    rating:{
+                        type:Number,
+                        default:0
+                    },
+                    review:{
+                        type:String,
+                        trim:true,
+                        default:"No reviews posted yet"
+                    }
+                }
+            }
+        ],
+        totalPrice:{
+            type:Number,
+            required:true
+        }
+    },
+    paymentStatus:{
+        type:String,
+        required:true,
+        trim:true,
+    },
+    orderStatus:{
+        type:String,
+        required:true,
+        trim:true,
+    }
+    },
+{ timestamps: true },
+)
+
+export default mongoose.models?.Orders || mongoose.model('Orders',orderSchema);
