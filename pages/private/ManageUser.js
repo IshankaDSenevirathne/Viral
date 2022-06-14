@@ -116,12 +116,11 @@ export default function ManagesUser({cookies}){
                                     </Transition.Child>
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                                         <div className="px-4 sm:px-6">
-                                        <Dialog.Title className="text-4xl font-medium text-gray-900">Menu</Dialog.Title>
+                                            <Dialog.Title className="text-4xl font-medium text-gray-900">Menu</Dialog.Title>
                                         </div>
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                             <div className="flex flex-col items-start justify-between h-full">
                                                 <div className="flex flex-col items-start">
-                                                   
                                                     <button onClick={()=>{setMobileTab(mobilePanels[0]);setSideNavOpen(false)}} className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <LogoutIcon className="h-6 w-6 mr-1" /> Dashboard
                                                     </button>
@@ -137,7 +136,6 @@ export default function ManagesUser({cookies}){
                                                     <a href="/" className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <LogoutIcon className="h-6 w-6 mr-1" /> Store
                                                     </a>
-                                                   
                                                 </div>
                                                 <div className="flex flex-col p-5">
                                                     <div>
@@ -149,8 +147,6 @@ export default function ManagesUser({cookies}){
                                                     </button>
                                                 </div>
                                             </div>
-                                       
-                                        {/* /End replace */}
                                         </div>
                                     </div>
                                     </Dialog.Panel>
