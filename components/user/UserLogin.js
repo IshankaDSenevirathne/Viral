@@ -6,6 +6,7 @@ import {Menu, Transition,Dialog } from '@headlessui/react'
 import axios from "axios"
 import cookie from "js-cookie";
 import { parseCookies } from 'nookies';
+import {LogoutIcon,UserIcon,CogIcon,TruckIcon,InformationCircleIcon} from "@heroicons/react/outline"
 import {HeartIcon as SolidHeartIcon,XIcon} from "@heroicons/react/solid"
 import {getFavouriteItemData} from "../../lib/fetchDataSWR"
 import Spinner from "../Spinner"
@@ -270,91 +271,120 @@ export default function UserLogin() {
                     <button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-1 focus:ring-blue-500 md:mr-3" onClick={()=>setUserOpen(true)}> 
                       {user.image?<Image src={user.image} width={50} height={50} className="rounded-full"/>:<Image src="/user .png" width={50} height={50} className="rounded-full"/>}
                     </button>
-                    <Transition appear show={isUserOpen} as={Fragment}>
-                        <Dialog as="div" className="relative z-50" onClose={()=>setUserOpen(false)}>
+                    <Transition.Root show={isUserOpen} as={Fragment}>
+                        <Dialog as="div" className="relative z-50 md:hidden" onClose={()=>setUserOpen(false)}>
                             <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
+                            as={Fragment}
+                            enter="ease-in-out duration-500"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="ease-in-out duration-500"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
                             >
-                                <div className="hidden fixed inset-0 bg-gray-700 bg-opacity-0 transition-opacity backdrop-brightness-50 sm:block" />
+                            <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
                             </Transition.Child>
 
-                            <div className="fixed z-50 inset-0 overflow-y-auto">
-                                <div className="flex min-h-screen w-screen text-center sm:block md:px-2 lg:px-4">
-                                {/* This element is to trick the browser into centering the modal contents. */}
-                                <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
-                                    &#8203;
-                                </span>
+                            <div className="md:hidden fixed inset-0 overflow-hidden">
+                            <div className="absolute inset-0 overflow-hidden">
+                                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-16">
+                                <Transition.Child
+                                    as={Fragment}
+                                    enter="transform transition ease-in-out duration-500 sm:duration-700"
+                                    enterFrom="translate-x-full"
+                                    enterTo="translate-x-0"
+                                    leave="transform transition ease-in-out duration-500 sm:duration-700"
+                                    leaveFrom="translate-x-0"
+                                    leaveTo="translate-x-full"
+                                >
+                                    <Dialog.Panel className="md:hidden pointer-events-auto relative w-screen max-w-md">
                                     <Transition.Child
                                         as={Fragment}
-                                        enter="ease-out duration-300"
-                                        enterFrom="opacity-0 scale-95"
-                                        enterTo="opacity-100 scale-100"
-                                        leave="ease-in duration-200"
-                                        leaveFrom="opacity-100 scale-100"
-                                        leaveTo="opacity-0 scale-95"
+                                        enter="ease-in-out duration-500"
+                                        enterFrom="opacity-0"
+                                        enterTo="opacity-100"
+                                        leave="ease-in-out duration-500"
+                                        leaveFrom="opacity-100"
+                                        leaveTo="opacity-0"
                                     >
-                                        <Dialog.Panel className="flex text-base text-left transform transition shadow-2xl w-screen sm:w-fit sm:inline-block sm:max-w-xl md:max-w-2xl md:mx-4 sm:align-middle lg:max-w-7xl">
-                                            <div className="flex flex-col justify-between px-5 py-16 bg-white rounded-md shadow-2xl w-screen sm:w-fit">
-                                              <div>
-                                                <div>
-                                                    <Link
-                                                      href="/private/ManageUser?panel=0"
-                                                      className='block px-4 py-2 text-lg text-gray-700'
-                                                    >
-                                                      Profile
-                                                    </Link>
-                                                </div>
-                                                <div>
-                                                
-                                                    <Link
-                                                      href="/private/ManageUser?panel=1"
-                                                      className='block px-4 py-2 text-lg text-gray-700'
-                                                    >
-                                                      Orders
-                                                    </Link>
-                                                </div>
-                                                <div>
-                                                
-                                                    <Link
-                                                      href="/private/ManageUser?panel=2"
-                                                      className='block px-4 py-2 text-lg text-gray-700'
-                                                    >
-                                                      Settings
-                                                    </Link>
-                                                </div>
-                                                <div>
-                                                
-                                                    <Link
-                                                      href="/private/ManageUser?panel=3"
-                                                      className='block px-4 py-2 text-lg text-gray-700'
-                                                    >
-                                                      Help
-                                                    </Link>
-                                                </div>
-                                              </div>
-                                              <div>
-                                               
-                                                  <Link
-                                                    href="#"
-                                                    className='block px-4 py-2 text-lg text-gray-700'
-                                                    onClick={() => handleLogOut()}
-                                                  >
-                                                    Sign out
-                                                  </Link>
-                                              </div>
-                                            </div>
-                                        </Dialog.Panel>
+                                        <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
+                                        <button
+                                            type="button"
+                                            className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                                            onClick={() => setUserOpen(false)}
+                                        >
+                                            <span className="sr-only">Close panel</span>
+                                            <XIcon className="h-6 w-6" aria-hidden="true" />
+                                        </button>
+                                        </div>
                                     </Transition.Child>
+                                    <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                                        <div className="px-4 sm:px-6 bg-gray-800 py-2">
+                                          <Dialog.Title className="text-3xl font-medium text-white">
+                                          <div>
+                                            {user.image?<Image src={user.image} width={100} height={100} className="rounded-full"/>:<Image src="/user .png" width={100} height={100} className="rounded-full"/>}
+                                            <p className="text-lg text-white">{user.name || (user.firstName+ " " + user.lastName)}</p>
+                                          </div>
+                                          </Dialog.Title>
+                                        </div>
+                                        <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                                            <div className="flex flex-col items-start justify-between h-full">
+                                                <div className="flex flex-col items-start text-lg gap-4 text-gray-400">
+                                                    <div >
+                                                      <Link
+                                                        href="/private/ManageUser?panel=0"
+                                                      >
+                                                        <p className="flex items-center">
+                                                          <UserIcon className="h-6 w-6 mr-1 text-blue-500" />Profile
+                                                        </p>
+                                                      </Link>
+                                                    </div>
+                                                    <div>
+                                                      <Link
+                                                        href="/private/ManageUser?panel=1"
+                                                      >
+                                                      <p className="flex items-center">
+                                                          <TruckIcon className="h-6 w-6 mr-1 text-blue-500" />Orders
+                                                        </p>
+                                                      </Link>
+                                                    </div>
+                                                    <div>
+                                                      <Link
+                                                        href="/private/ManageUser?panel=2"
+                                                      >
+                                                        <p className="flex items-center">
+                                                          <CogIcon className="h-6 w-6 mr-1 text-blue-500" />Settings
+                                                        </p>
+                                                      </Link>
+                                                    </div>
+                                                    <div>
+                                                      <Link
+                                                        href="/private/ManageUser?panel=3"
+                                                      >
+                                                        <p className="flex items-center">
+                                                          <InformationCircleIcon className="h-6 w-6 mr-1 text-blue-500" />Help
+                                                        </p>
+                                                      </Link>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col p-5">
+                                                   
+                                                    <button onClick={()=>handleLogOut()} className="flex w-fit items-center justify-center mb-5 rounded-md py-2 text-gray-400  md:text-md lg:text-lg hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
+                                                        <LogoutIcon className="h-6 w-6 mr-1" /> LogOut
+                                                    </button>
+                                                </div>
+                                            </div>
+                                       
+                                        {/* /End replace */}
+                                        </div>
+                                    </div>
+                                    </Dialog.Panel>
+                                </Transition.Child>
                                 </div>
                             </div>
+                            </div>
                         </Dialog>
-                    </Transition>
+                    </Transition.Root>            
                 </div>
                 <Menu as="div" className="z-10 ml-3 relative hidden md:flex">
                   <div className="flex items-center">
