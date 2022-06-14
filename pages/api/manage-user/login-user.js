@@ -1,5 +1,5 @@
 import dbConnect from'../../../lib/dbConnect';
-import User from "../../../schema/user";
+import User from "../../../schema/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 

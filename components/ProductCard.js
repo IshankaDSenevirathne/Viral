@@ -120,8 +120,8 @@ export default function ProductCard({id,page,name,price,images,features,company,
                     }
                 </button>
                 <div className={classNames(page=="new_trending"?" w-full delay-10 bg-white/30 backdrop-blur-sm absolute bottom-0 left-0 pt-2 pl-5 text-left text-black":"w-full bg-white/30 backdrop-blur-sm absolute bottom-0 mb-1.5 left-0 pt-2 pl-5 text-left text-black")}>
-                    <p className="text-md sm:text-xl font-bold">{name}</p>
-                    <p className="text-sm sm:text-lg font-bold">{price}<span className="text-blue-500">$</span></p>
+                    <p className="text-sm font-bold">{name}</p>
+                    <p className="text-md font-bold">{price}<span className="text-blue-500">$</span></p>
                     {ratingDetails && <div className="flex items-center gap-2"><ReactStars 
                         size={20}
                         count= {5}
