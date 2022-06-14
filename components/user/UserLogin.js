@@ -582,7 +582,7 @@ export default function UserLogin() {
 export async function getServerSideProps(context){
 
   const session = await getSession(context);
-
+  console.log(session);
   return{
     props:{session}
   }
