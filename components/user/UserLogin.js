@@ -303,50 +303,50 @@ export default function UserLogin() {
                                             <div className="flex flex-col justify-between px-5 py-16 bg-white rounded-md shadow-2xl w-screen sm:w-fit">
                                               <div>
                                                 <div>
-                                                    <a
+                                                    <Link
                                                       href="/private/ManageUser?panel=0"
                                                       className='block px-4 py-2 text-lg text-gray-700'
                                                     >
                                                       Profile
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                                 <div>
                                                 
-                                                    <a
+                                                    <Link
                                                       href="/private/ManageUser?panel=1"
                                                       className='block px-4 py-2 text-lg text-gray-700'
                                                     >
                                                       Orders
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                                 <div>
                                                 
-                                                    <a
+                                                    <Link
                                                       href="/private/ManageUser?panel=2"
                                                       className='block px-4 py-2 text-lg text-gray-700'
                                                     >
                                                       Settings
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                                 <div>
                                                 
-                                                    <a
+                                                    <Link
                                                       href="/private/ManageUser?panel=3"
                                                       className='block px-4 py-2 text-lg text-gray-700'
                                                     >
                                                       Help
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                               </div>
                                               <div>
                                                
-                                                  <a
+                                                  <Link
                                                     href="#"
                                                     className='block px-4 py-2 text-lg text-gray-700'
                                                     onClick={() => handleLogOut()}
                                                   >
                                                     Sign out
-                                                  </a>
+                                                  </Link>
                                               </div>
                                             </div>
                                         </Dialog.Panel>

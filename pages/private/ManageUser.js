@@ -227,7 +227,6 @@ export default function ManagesUser({cookies}){
 
 export async function getServerSideProps(context) {
     const {cookies}= context.req
-    console.log(context)
     const session = await getSession(context);
     if (!session && !cookies.token) {
         return {
