@@ -17,7 +17,7 @@ export default function MobileDashboard({user,cart}){
     const {data:savedUserOrders,isLoading:isLoadingSavedOrders,errorSavedOrders} = getSavedOrdersData({userEmail:user.email});
     const {data:favourites,isLoading:isLoadingfavourites,errorfavourites} = getFavouriteItemData({userEmail:user.email});
     const [liveCart,setLiveCart]= useState([])
-    const publishableKey = process.env.STRIPE_PUBLIC_KEY;
+    const publishableKey = `${process.env.STRIPE_PUBLIC_KEY}`;
     const stripePromise = loadStripe(publishableKey);
 
     const createCheckOutSession = async (cart) => {
