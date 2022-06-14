@@ -16,7 +16,12 @@ export default function ManagesUser({cookies}){
     const router = useRouter()
     const {panel} = router.query;
     const {data:session}=useSession()
-    const user = cookies.user?JSON.parse(cookies.user):session.user
+    const user = {
+        name: 'Dileep Senevirathne',
+        email: 'ishankadsenevirathne@gmail.com',
+        image: 'https://lh3.googleusercontent.com/a-/AOh14GgP0bBikQdZoIKS85MD5VLPTiWwOG5jEWXCA23iOw=s96-c'
+  
+    }
     const cart = cookies.cart?JSON.parse(cookies.cart):[];
 
     const panels = [<DesktopDashboard user={user} cart={cart}/>,<Orders user={user}/>,<Reviews />,<Account />];
