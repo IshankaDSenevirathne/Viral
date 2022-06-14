@@ -6,7 +6,7 @@ export default function Footer(){
             <div className="bg-gray-800 md:hidden">
                 <div className="py-5 px-5">
                     <div className="flex border-b border-gray-700 pb-5">
-                        <div className="text-md sm:text-sm text-gray-100 col-span-2 grid grid-rows-4">
+                        <div className="text-sm text-gray-100 col-span-2 grid grid-rows-4">
                             <a>
                                 Home
                             </a>
@@ -56,7 +56,7 @@ export default function Footer(){
                     </span>
                 </div>
             </div>
-            <div className="hidden md:flex ">
+            <div className="hidden md:flex md:flex-col ">
                 <div className="bg-gray-800 w-screen  border-b-2 border-gray-600 ">
                     <div className=" container mx-auto h-fit">
                         <div className=" container mx-auto grid grid-cols-6 max-w-screen-xl text-white font-semibold h-64 pt-10 gap-2 ">

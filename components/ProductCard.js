@@ -107,21 +107,21 @@ export default function ProductCard({id,page,name,price,images,features,company,
             <div className={classNames(page=="new_trending"?"":"relative")}>
                 <button onClick={handleFavourite} className="z-10 w-fit h-fit bg-white/30 backdrop-blur-sm absolute top-0 right-0">
                     {productFavStatus?
-                        <SolidHeartIcon className="h-8 w-8 m-1 text-red-400 hover:text-white duration-300 delay-10" />
+                        <SolidHeartIcon className="h-5 w-5 m-1 text-red-400 hover:text-white duration-300 delay-10" />
                             :
-                        <HeartIcon className="h-8 w-8 m-1 text-white hover:text-red-400 duration-300 delay-10" />
+                        <HeartIcon className="h-5 w-5 m-1 text-white hover:text-red-400 duration-300 delay-10" />
                     }
                 </button>
                 <button onClick={()=>setIsOpen(true)}>
                     {layoutType=="fill"?
-                    <Image src={images[1].url} layout="fill" objectFit="contain" className="w-full h-full"/>
+                    <Image src={images[1].url} layout="fill" objectFit="contain" className="w-full rounded-md h-full"/>
                         :
-                    <Image src={images[1].url} width={limits} height={limits} objectFit="contain" className="w-full h-full"/>
+                    <Image src={images[1].url} width={limits} height={limits} objectFit="contain" className="w-full rounded-md h-full"/>
                     }
                 </button>
                 <div className={classNames(page=="new_trending"?" w-full delay-10 bg-white/30 backdrop-blur-sm absolute bottom-0 left-0 pt-2 pl-5 text-left text-black":"w-full bg-white/30 backdrop-blur-sm absolute bottom-0 mb-1.5 left-0 pt-2 pl-5 text-left text-black")}>
-                    <p className="text-2xl font-bold">{name}</p>
-                    <p className="text-xl font-bold">{price}<span className="text-blue-500">$</span></p>
+                    <p className="text-md sm:text-xl font-bold">{name}</p>
+                    <p className="text-sm sm:text-lg font-bold">{price}<span className="text-blue-500">$</span></p>
                     {ratingDetails && <div className="flex items-center gap-2"><ReactStars 
                         size={20}
                         count= {5}
@@ -177,10 +177,10 @@ export default function ProductCard({id,page,name,price,images,features,company,
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="hidden fixed inset-0 bg-gray-700 bg-opacity-50 transition-opacity md:block" />
+                        <div className="fixed inset-0 bg-gray-700 bg-opacity-0 transition-opacity block" />
                     </Transition.Child>
 
-                    <div className="fixed z-10 inset-0 overflow-y-auto">
+                    <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex min-h-screen  w-screen text-center lg:block lg:px-2 lg:px-4" style={{ fontSize: 0 }}>
                         {/* This element is to trick the browser into centering the modal contents. */}
                         <span className="hidden lg:inline-block lg:align-middle lg:h-screen" aria-hidden="true">
