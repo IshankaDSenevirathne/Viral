@@ -1,5 +1,5 @@
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
 
 async function createStripeProduct(req,res) {
   const {cart} = req.body;

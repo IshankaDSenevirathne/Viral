@@ -21,7 +21,7 @@ export default function ShoppingCart(){
     const [isCartOpen,setCartOpen] = useState(false);
     const {state,dispatch} = useContext(Store);
     const {cart:store_cart}=state;
-    const publishableKey = process.env.STRIPE_PUBLIC_KEY;
+    const publishableKey = `${process.env.STRIPE_PUBLIC_KEY}`;
     const stripePromise = loadStripe(publishableKey);
     const { data: session } = useSession();
     const cookies = parseCookies();
