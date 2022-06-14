@@ -479,7 +479,7 @@ export default function UserLogin() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="hidden fixed inset-0 bg-gray-700 bg-opacity-0 transition-opacity backdrop-brightness-50 sm:block" />
+                        <div className=" fixed inset-0 bg-gray-700 bg-opacity-0 transition-opacity backdrop-brightness-50 block" />
                     </Transition.Child>
 
                     <div className="fixed z-50 inset-0 overflow-y-auto">
@@ -550,7 +550,7 @@ export default function UserLogin() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="hidden fixed inset-0 bg-gray-700 bg-opacity-0 backdrop-brightness-50 transition-opacity sm:block" />
+                        <div className="fixed inset-0 bg-gray-700 bg-opacity-0 backdrop-brightness-50 transition-opacity block" />
                     </Transition.Child>
 
                     <div className="fixed z-50 inset-0 overflow-y-auto">

@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import cookie from "js-cookie"
 import axios from "axios";
 import ProductCard from "../ProductCard";
+import { parseCookies } from 'nookies';
 
 
 export default function DesktopDashboard({user,cart}){
@@ -21,7 +22,10 @@ export default function DesktopDashboard({user,cart}){
     const [liveCart,setLiveCart]= useState([])
     const publishableKey = `${process.env.STRIPE_PUBLIC_KEY}`;
     const stripePromise = loadStripe(publishableKey);
-
+    const cookies = parseCookies()
+    const store_cookie = cookies?.cart
+    ? JSON.parse(cookies.cart)
+    : []
     const createCheckOutSession = async (cart) => {
         const stripe = await stripePromise;
         

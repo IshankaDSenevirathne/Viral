@@ -107,9 +107,9 @@ export default function ProductCard({id,page,name,price,images,features,company,
             <div className={classNames(page=="new_trending"?"":"relative")}>
                 <button onClick={handleFavourite} className="z-10 w-fit h-fit bg-white/30 backdrop-blur-sm absolute top-0 right-0">
                     {productFavStatus?
-                        <SolidHeartIcon className="h-5 w-5 m-1 text-red-400 hover:text-white duration-300 delay-10" />
+                        <SolidHeartIcon className="h-5 w-5 sm:h-8 sm:w-8 m-1 text-red-400 hover:text-white duration-300 delay-10" />
                             :
-                        <HeartIcon className="h-5 w-5 m-1 text-white hover:text-red-400 duration-300 delay-10" />
+                        <HeartIcon className="h-5 w-5 sm:h-5 sm:w-5 m-1 text-white hover:text-red-400 duration-300 delay-10" />
                     }
                 </button>
                 <button onClick={()=>setIsOpen(true)}>

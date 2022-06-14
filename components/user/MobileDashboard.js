@@ -1,5 +1,6 @@
+
 import Image from "next/image"
-    import {getUserOrdersData,getSavedOrdersData,getFavouriteItemData} from "../../lib/fetchDataSWR"
+import {getUserOrdersData,getSavedOrdersData,getFavouriteItemData} from "../../lib/fetchDataSWR"
 import {TruckIcon,TrashIcon,GiftIcon,ShoppingCartIcon,ShoppingBagIcon,CreditCardIcon, CogIcon} from '@heroicons/react/outline'
 import { useEffect,useState,useContext } from "react";
 import {Store} from "../../lib/Store";
@@ -8,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import cookie from "js-cookie"
 import axios from "axios";
 import ProductCard from "../ProductCard";
+import { parseCookies } from 'nookies';
 
 export default function MobileDashboard({user,cart}){
     const [totalPrice,setTotalPrice]=useState(0);
@@ -19,7 +21,10 @@ export default function MobileDashboard({user,cart}){
     const [liveCart,setLiveCart]= useState([])
     const publishableKey = `${process.env.STRIPE_PUBLIC_KEY}`;
     const stripePromise = loadStripe(publishableKey);
-
+    const cookies = parseCookies();
+    const store_cookie = cookies?.cart
+                ? JSON.parse(cookies.cart)
+                : []
     const createCheckOutSession = async (cart) => {
         const stripe = await stripePromise;
         
@@ -50,7 +55,7 @@ export default function MobileDashboard({user,cart}){
             for(const product of cart){
                 orderPrice+=product.price*product.quantity;
             }
-            setLiveCart(cart)
+            store_cookie.length!=0?setLiveCart(cart):setLiveCart([]);
         }
         else if(cart.length==0 && state.cart.length!=0){
             for(const product of state.cart){
@@ -159,19 +164,19 @@ export default function MobileDashboard({user,cart}){
         }
     }
     function handleEmptyCart(){
+        setLiveCart([]);
         dispatch({type:"EMPTY_CART"});
         cookie.set("cart",JSON.stringify([]));
-        setLiveCart([]);
         setTotalPrice(0);
+        console.log(liveCart)
     }
 
     return(
         <div className="">
-           
             <div className="m-2">
                 <div className="w-full bg-gray-100 rounded-md ">
                     <div  className="shadow-sm rounded-md bg-white">
-                        {(liveCart && liveCart.length!=0)?
+                        {liveCart && liveCart.length!=0?
                             <div  className="flex flex-col">
                                 <div className="border-b">
                                     <p className="flex  items-center text-gray-800 text-left text-xl lg:text-3xl font-bold p-5"><ShoppingCartIcon  className="text-green-500 mr-3 w-8 h-8"/>Your Cart</p>
@@ -261,15 +266,17 @@ export default function MobileDashboard({user,cart}){
                                 </div>
                             </div>
                             :
-                            <div className="w-full h-full container rounded-md mx-auto bg-white shadow-md px-10 py-5">
-                                <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">You Shopping cart is currently empty!</h1>
-                                <div className='flex justify-start mt-5'>
-                                    <button
-                                        type="button"
-                                        className="inline-flex px-5 justify-center rounded-md border border-transparent bg-blue-500  py-1 items-center text-sm font-medium text-white hover:bg-blue-400  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 duration-100 delay-10"
-                                    >
-                                            <ShoppingCartIcon className="text-white h-5 w-5"/>
-                                    </button>
+                            <div className="w-full h-full  rounded-md mx-auto bg-white shadow-md px-5 py-5">
+                                <div className="h-fit sm:py-20 border border-dashed px-2 py-10 text-center">
+                                    <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">Your Shopping cart is currently empty!</h1>
+                                    <div className='flex justify-center mt-5'>
+                                        <button
+                                            type="button"
+                                            className="inline-flex px-5 justify-center items-center text-sm text-blue-500 py-3 items-center"
+                                        >
+                                               <ShoppingCartIcon className="text-blue-500 h-5 w-5 mr-1"/>Start Shopping !
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         }
