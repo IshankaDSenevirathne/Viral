@@ -228,14 +228,7 @@ export default function ManagesUser({cookies}){
 export async function getServerSideProps(context) {
     const {cookies}= context.req
     const session = await getSession(context);
-    if (!session && !cookies.token) {
-        return {
-          redirect: {
-            destination: '/',
-            permanent: false,
-          },
-        }
-      }
+    
     return {
       props: {cookies,session}, // will be passed to the page component as props
     }
