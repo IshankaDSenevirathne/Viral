@@ -32,8 +32,8 @@ export default function ManagesUser({cookies}){
         cookie.remove("token");
         cookie.remove("cart");
       }
-        return(
-            <div>
+            if(user && cart){
+            return <div>
                 <div className="w-screen min-h-screen md:hidden bg-gray-100">
                     <div className="flex fixed top-0 left-0 justify-between bg-gray-800 p-2 w-screen z-10">
                         <div className="flex items-center">
@@ -221,7 +221,9 @@ export default function ManagesUser({cookies}){
                     </div>
                 </div>
             </div>
-    )
+            }else{
+                return <div>no user available</div>
+            }
 }
 
 
