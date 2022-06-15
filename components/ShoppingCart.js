@@ -259,12 +259,11 @@ export default function ShoppingCart(){
                                 </Menu.Item>
                             
                                 ):  <Menu.Item>
-                                        <div className="text-center">
+                                        <div className="text-center py-2 pl-2">
                                             <p className="text-gray-400 text-xl py-20 border-dashed border rounded-md">Cart Empty</p>
                                         </div>
                                     </Menu.Item>
                             }
-                            
                         </div>
                     </Menu.Items>
                     </Transition>

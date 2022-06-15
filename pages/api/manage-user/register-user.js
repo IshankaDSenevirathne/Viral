@@ -25,7 +25,7 @@ export default async(req,res)=>{
                     expiresIn:"300s",
                 });
                 const {_id} = newUser;
-                res.status(201).json({success:true,user:{email,_id,firstName,lastName},token})
+                res.status(201).json({success:true,user:{email,_id,firstName,lastName,userType:newUser.userType},token})
             }catch(error){
                 res.status(400).json({success:false});
                 console.log(error);

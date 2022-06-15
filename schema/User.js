@@ -24,6 +24,11 @@ const userSchema = mongoose.Schema({
         type:String,
         required:true,
         trim:true
+    },
+    userType:{
+        type:String,
+        trim:true,
+        default:"CLIENT"
     }
 },{timestamps:true})
 

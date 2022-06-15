@@ -1,4 +1,5 @@
 import Image from "next/image"
+import {useSession,getSession,signOut} from "next-auth/react"
 import {useState} from "react"
 import {ChartPieIcon,CogIcon,DatabaseIcon,TruckIcon,UsersIcon} from '@heroicons/react/solid'
 import {Dashboard,SettingsData} from "../../components/Dashboard"
@@ -57,3 +58,27 @@ export default function ManageShop(){
     )
 
 }
+export async function getServerSideProps(context) {
+    const {cookies}= context.req
+    const session = await getSession(context);
+    if(!session && !cookies.user){
+        return{
+            redirect:{
+                permanent:false,
+                destination:"/"
+            },
+        }
+    }
+    if(!session.user.userType || session.user.userType!="ADMIN"){
+        return{
+            redirect:{
+                permanent:false,
+                destination:"/private/ManageUser?panel=0"
+            }
+        }
+    }else{
+        return {
+            props: {cookies,session}, // will be passed to the page component as props
+        }
+    }
+  }

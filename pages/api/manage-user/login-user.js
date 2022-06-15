@@ -28,13 +28,13 @@ export default async(req,res)=>{
                 }
                 const doMatch = await bcrypt.compare(password,user.password);
                 if(!doMatch){
-                    res.status(404).json({message:"icorrecct credentials"})
+                    res.status(404).json({message:"incorrecct credentials"})
                 }else{
                     const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{
                         expiresIn:"300s",
                     })
                     const {email,_id,firstName,lastName} = user
-                    res.status(200).json({message:"login success",user:{email,_id,firstName,lastName},token})
+                    res.status(200).json({message:"login success",user:{email,_id,firstName,lastName,userType},token})
                 }
             }catch(error){
                 res.status(400).json({success:false});

@@ -270,12 +270,12 @@ export default function MobileDashboard({user,cart}){
                                 <div className="h-fit sm:py-20 border border-dashed px-2 py-10 text-center">
                                     <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">Your Shopping cart is currently empty!</h1>
                                     <div className='flex justify-center mt-5'>
-                                        <button
-                                            type="button"
+                                        <a
+                                            href="/"
                                             className="inline-flex px-5 justify-center items-center text-sm text-blue-500 py-3 items-center"
                                         >
                                                <ShoppingCartIcon className="text-blue-500 h-5 w-5 mr-1"/>Start Shopping !
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -297,9 +297,13 @@ export default function MobileDashboard({user,cart}){
                         }
                     </div>
                     {!isLoadingfavourites && favourites.data.length==0 &&
-                        <div>
-                            You have no items on your wishlist!
+                    <div >
+                         <div className="w-full h-full  rounded-md mx-auto bg-white  p-3">
+                            <div className="h-fit sm:py-20 border border-dashed px-2 py-10 text-center">
+                                <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">You don't have any items in your wishlist!</h1>
+                            </div>
                         </div>
+                    </div>
                     }
                 </div>
             </div>
@@ -307,7 +311,7 @@ export default function MobileDashboard({user,cart}){
                 <div className=" rounded-t-md border-b">
                     <h1 className="text-gray-800 text-left text-xl lg:text-3xl font-bold p-5">Latest Order</h1>
                 </div>
-                <div className="mt-5">
+                <div>
                         <div className="w-full">
                             {isLoadingOrders || error
                                 ?
@@ -316,7 +320,7 @@ export default function MobileDashboard({user,cart}){
                                     <div className="flex flex-col gap-1 p-2 w-full">
                                     {ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderDetails.products.map((product,index) => (
                                     <div key={index}>
-                                        <div className="bg-gray-100 grid grid-cols-6 w-full justify-between shadow-sm rounded-md">
+                                        <div className=" mt-5 bg-gray-100 grid grid-cols-6 w-full justify-between shadow-sm rounded-md">
                                             <div className="pt-2 px-2 col-span-4 flex flex-col justify-center">
                                                 <p className="text-sm font-bold text-gray-800">
                                                 {product.productName}
@@ -342,16 +346,107 @@ export default function MobileDashboard({user,cart}){
                             }
                     </div>
                 </div>
-                <div className="p-2">
-                    <div className="flex flex-col w-full">
-                        <div className="grid grid-cols-8 text-center items-center gap-2">
-                            <span className="bg-gray-800 p-1 mr-2 rounded-md col-span-2 w-full h-full">
-                                {ordersData && ordersData.data.length!=0 && <p className="text-gray-400 flex items-center justify-center font-bold text-xs ">{ordersData.data[ordersData.data.length-1].createdAt.substring(0,10)}</p>}
-                                {ordersData && ordersData.data.length!=0 && <p className="font-bold text-lg text-white">{parseFloat(ordersData.data[ordersData.data.length-1].orderDetails.totalPrice*0.01).toFixed(2)}<span className="text-blue-500">$</span></p>}
-                            </span>
-                            <span className="bg-gray-800 p-1 rounded-md col-span-2 w-full h-full">{ordersData && ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderStatus=="Pending"?<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold text-xs">Getting Wrapped</p><GiftIcon className="h-8 w-8 text-yellow-500 " /></span>:<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold text-xs">Shipped</p><TruckIcon className="h-8 w-8  text-green-500 " /></span>}</span>
-                        </div>  
+                {ordersData && ordersData.data.length==0 &&
+                <div >
+                     <div className="w-full h-full  rounded-md bg-white pt-1 px-5 pb-5">
+                        <div className="h-fit border border-dashed px-2 py-10 text-center">
+                            <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">You don't have any orders placed!</h1>
+                        </div>
                     </div>
+                </div>
+                }
+                {ordersData && ordersData.data.length!=0 && 
+                    <div className="p-2">
+                        <div className="flex flex-col w-full">
+                            <div className="grid grid-cols-8 text-center items-center gap-2">
+                                <span className="bg-gray-800 p-1 mr-2 rounded-md col-span-2 w-full h-full">
+                                    {ordersData && ordersData.data.length!=0 && <p className="text-gray-400 flex items-center justify-center font-bold text-xs ">{ordersData.data[ordersData.data.length-1].createdAt.substring(0,10)}</p>}
+                                    {ordersData && ordersData.data.length!=0 && <p className="font-bold text-lg text-white">{parseFloat(ordersData.data[ordersData.data.length-1].orderDetails.totalPrice*0.01).toFixed(2)}<span className="text-blue-500">$</span></p>}
+                                </span>
+                                <span className="bg-gray-800 p-1 rounded-md col-span-2 w-full h-full">{ordersData && ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderStatus=="Pending"?<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold text-xs">Getting Wrapped</p><GiftIcon className="h-8 w-8 text-yellow-500 " /></span>:<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold text-xs">Shipped</p><TruckIcon className="h-8 w-8  text-green-500 " /></span>}</span>
+                            </div>  
+                        </div>
+                    </div>
+                }
+            </div>
+            <div className=" rounded-md shadow-md bg-white mx-2 my-5">
+                <h1 className="text-blue-500 bg-gray-800 rounded-t-md text-left p-5 text-xl font-bold ">Saved Orders</h1>
+                <div className="">
+                    {isLoadingSavedOrders || errorSavedOrders?
+                        <Spinner className="w-full"/>
+                            :
+                        <div  className="flex flex-col overflow-y-auto scrollbar max-h-152">
+                        {savedOrders && savedOrders.length!=0 && savedOrders.map((order,idx)=>(
+                            <div key={idx}>
+                            <div  className="bg-gray-100 m-2 text-gray-800 flex flex-col justify-between p-5 rounded-md">
+                                <div>
+                                    
+                                    <div className="p-5 border-b border-gray-600">
+                                        {order.orderDetails.products.map((product,idx)=>
+                                            <div key={idx}>
+                                                <div>
+                                                    <div className="text-gray-800">
+                                                        <ul className="list-disc pl-5 ">
+                                                            <li>
+                                                                <span className="flex flex-col mb-1 ">
+                                                                    <p className="  p-1 mr-1 text-sm font-semibold">
+                                                                        {product.productName}  
+                                                                    </p>
+                                                                    <div className="flex p-2 gap-2 text-xs bg-white rounded-md items-center">
+                                                                        <div className="bg-red-500 rounded-2xl w-2 h-2 "></div>
+                                                                        <p className="">
+                                                                            &nbsp;{product.productSize}  
+                                                                        </p>
+                                                                        <p className="">
+                                                                            &nbsp;x{product.productQuantity} 
+                                                                        </p>
+                                                                    </div>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className='flex flex-col w-full px-5 pt-5 text-right'>
+                                    <p className="font-bold text-gray-800 text-md">{order.orderDetails.totalPrice}<span className="text-blue-500">$</span></p>
+                                    <p className="text-gray-400 text-xs">{order.createdAt.substring(0,10)}</p>
+                                </div>
+                                <div className="grid grid-cols-6 mt-5">
+                                    <div className="col-span-2"></div>
+                                    <button onClick={()=>createCheckOutSession(order.orderDetails.products.map((item)=>({name:item.productName,imageURL:item.productImage,price:item.productPrice,quantity:item.productQuantity})))} className="inline-flex m-1 justify-center rounded-md border  bg-gray-800 shadow-sm py-2 items-center text-sm font-medium text-green-500 border-green-500  "
+                                        >
+                                        <CreditCardIcon className="h-4 w-4 "/>
+                                    </button>
+                                    <button onClick={()=>handleOrderDelete(order)} className="inline-flex m-1 justify-center rounded-md border bg-gray-800 shadow-sm py-2 items-center text-sm font-medium   text-red-400 border-red-400  "
+                                        >
+                                        <TrashIcon className=" h-4 w-4"/>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        ))}
+                    </div>
+                    }
+                    {savedOrders && savedOrders.length==0 &&
+                        <div>
+                            <div className="w-full h-full  rounded-md mx-auto bg-white shadow-md px-5 py-5">
+                                <div className="h-fit sm:py-20 border border-dashed px-2 py-10 text-center">
+                                    <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-xl">You don't have any saved orders yet!</h1>
+                                    <div className='flex justify-center mt-5'>
+                                        <a
+                                            href="/"
+                                            className="inline-flex px-5 justify-center items-center text-sm text-blue-500 py-3 items-center"
+                                        >
+                                               <ShoppingCartIcon className="text-blue-500 h-5 w-5 mr-1"/>Start Creating Orders !
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -27,7 +27,8 @@ export default function UserLogin() {
   const [userLastName,setUserLastName]=useState("");
   const [userEmail,setUserEmail]=useState("");
   const [userPassword,setUserPassword]=useState("");
-  
+  const [credentialValidatorStatus,setCredentialValidatorStatus]=useState(false)
+  const [credentialErrorMessage,setCredentialErrorMessage]=useState("")
   const [userState,setUserState]=useState("");
   const {state,dispatch} = useContext(Store);
   const favouritesStore=state.favourites;
@@ -65,6 +66,11 @@ export default function UserLogin() {
     setUserState("")
   }
   async function handleSignUp(){
+    if(!userEmail || !userPassword || !userLastName || !userFirstName || userEmail.length==0 || userPassword.length==0 || userLastName.length==0 || userFirstName.length==0){
+      setCredentialValidatorStatus(true)
+      setCredentialErrorMessage("Please fill in all fields!")
+      return
+    }
     try{
       const credentials = {firstName:userFirstName,lastName:userLastName,email:userEmail,password:userPassword};
       const res = await axios.post("/api/manage-user/register-user",credentials,{headers:{"Content-Type":"application/json"}});
@@ -75,24 +81,30 @@ export default function UserLogin() {
         router.push("/");
       }
     }catch(error){
-      console.log(error);
+      setCredentialValidatorStatus(true)
+      setCredentialErrorMessage("Email Address already in use!")
     }
   }
   async function handleLogIn(){
+    if(!userEmail || !userPassword || userEmail.length==0 || userPassword.length==0){
+      setCredentialValidatorStatus(true)
+      setCredentialErrorMessage("Please provide both Email & Password")
+      return
+    }
     try{
       const credentials = {email:userEmail,password:userPassword};
-      console.log(credentials);
       const res = await axios.post("/api/manage-user/login-user",credentials,{headers:{"Content-Type":"application/json"}});
-      console.log(res)
       if(res.status==200){
-        alert("success");
+        credentialValidatorStatus(false)
         cookie.set("token",res.data.token);
         cookie.set("user",JSON.stringify(res.data.user));
         router.push("/");
       }
+        
     }
     catch(error){
-      console.log(error);
+      setCredentialValidatorStatus(true);
+      setCredentialErrorMessage("Check your Email/Password and try again!")
     }
   }
   async function handleRemoveFromFavourites(e,item){
@@ -408,7 +420,7 @@ export default function UserLogin() {
                         {({ active }) => (
                           <a
                             href="/private/ManageUser?panel=0"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(active ? 'bg-blue-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Profile
                           </a>
@@ -469,7 +481,8 @@ export default function UserLogin() {
         <button className="py-2 px-4 text-gray-300 rounded-md font-semibold hover:bg-gray-700 hover:text-white text-sm duration-300 delay-10 " onClick={()=>setIsSignUpOpen(true)}>Sign Up</button>
       </div>
       <Transition appear show={isSignUpOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={()=>setIsSignUpOpen(false)}>
+                <Dialog as="div" className="relative z-50" onClose={()=>{setCredentialErrorMessage("");
+                                            setCredentialValidatorStatus(false);setIsSignUpOpen(false)}}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -500,6 +513,7 @@ export default function UserLogin() {
                                   <Dialog.Panel className="flex text-base text-left transform transition shadow-2xl w-screen sm:w-fit sm:inline-block sm:max-w-xl md:max-w-2xl md:mx-4 sm:align-middle lg:max-w-7xl">
                                     <div className="flex flex-col px-5 py-16 bg-white rounded-md shadow-2xl w-screen sm:w-fit">
                                         <h1 className="text-3xl font-bold text-center">Sign Up with Viral</h1>
+                                        {credentialValidatorStatus?<div className="flex flex-col pt-5 h-10 w-full"><p className="text-red-400 text-sm">Invalid Credentials!</p><p className="text-red-400 text-xs">{credentialErrorMessage}</p></div>:<div className="h-10 w-full"></div>}
                                         <div className="flex flex-col mt-12 gap-5">
                                           <input type="text" className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 w-full sm:w-128 h-12 p-2 border-gray-200 border rounded-sm" placeholder="First Name" onChange={(e)=>setUserFirstName(e.target.value)}/>
                                           <input type="text" className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 w-full sm:w-128 h-12 p-2 border-gray-200 border rounded-sm" placeholder="Last Name" onChange={(e)=>setUserLastName(e.target.value)}/>
@@ -526,6 +540,8 @@ export default function UserLogin() {
                                             setUserPassword("");
                                             setUserEmail("");
                                             setUserPassword("");
+                                            setCredentialErrorMessage("");
+                                            setCredentialValidatorStatus(false);
                                             setIsSignUpOpen(false);
                                             setIsLoginOpen(true);
                                           }} className="text-blue-500 hover:text-blue-400 pointer-cursor">
@@ -540,7 +556,8 @@ export default function UserLogin() {
                 </Dialog>
       </Transition>
       <Transition appear show={isLoginOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={()=>setIsLoginOpen(false)}>
+                <Dialog as="div" className="relative z-50" onClose={()=>{setCredentialErrorMessage("");
+                                            setCredentialValidatorStatus(false);setIsLoginOpen(false)}}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -570,9 +587,10 @@ export default function UserLogin() {
                                   <Dialog.Panel className="flex text-base text-left transform transition shadow-2xl sm:inline-block sm:max-w-xl md:max-w-2xl md:mx-4 sm:align-middle lg:max-w-7xl">
                                     <div className="flex flex-col justify-center px-5 py-16 bg-white rounded-md shadow-2xl w-screen sm:w-fit">
                                         <h1 className="text-3xl font-bold text-center">Sign in to Viral</h1>
+                                        {credentialValidatorStatus?<div className="flex flex-col pt-5 h-10 w-full"><p className="text-red-400 text-sm">Invalid Credentials!</p><p className="text-red-400 text-xs">{credentialErrorMessage}</p></div>:<div className="h-10 w-full"></div>}
                                         <div className="flex flex-col mt-12 gap-5">
-                                          <input type="email" className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 sm:w-128 w-full h-12 p-2 border-gray-200 border rounded-sm" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)}/>
-                                          <input type="password" className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 sm:w-128 w-full h-12 p-2 border-gray-200 border rounded-sm " placeholder="Password"onChange={(e)=>setUserPassword(e.target.value)}/>
+                                          <input type="email" required={true} className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 sm:w-128 w-full h-12 p-2 border-gray-200 border rounded-sm" placeholder="Email Address" onChange={(e)=>setUserEmail(e.target.value)}/>
+                                          <input type="password" required={true} className="focus:outline-none focus:ring-1 focus:border-blue-500 focus:ring-blue-500 sm:w-128 w-full h-12 p-2 border-gray-200 border rounded-sm " placeholder="Password"onChange={(e)=>setUserPassword(e.target.value)}/>
                                           <button className="w-full py-2 bg-blue-500 hover:bg-blue-400 duration-300 delay-10 text-white font-semibold text-xl rounded-sm mt-5" onClick={()=>handleLogIn()}>Log in</button>
                                         </div>
                                         <h1 className="text-xl font-semibold text-gray-400 text-center my-4">OR</h1>
@@ -592,6 +610,8 @@ export default function UserLogin() {
                                           <button onClick={()=>{
                                             setUserEmail("");
                                             setUserPassword("");
+                                            setCredentialErrorMessage("");
+                                            setCredentialValidatorStatus(false);
                                             setIsLoginOpen(false);
                                             setIsSignUpOpen(true);
                                           }} className="text-blue-500 hover:text-blue-400 pointer-cursor">
