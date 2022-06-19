@@ -23,7 +23,10 @@ export default function Homepage(){
 
     return(
         <div className="absolute overflow-y-auto top-0 left-0 ">
-            <div className=" h-screen w-screen grid grid-cols-8 gap-0 hidden xl:grid">
+            {/* <div className="h-screen w-screen bg-white">
+                Animated part
+            </div> */}
+            <div className=" h-152 w-screen grid grid-cols-8 gap-0 hidden xl:grid">
                 <div className="col-span-2 h-full w-full bg-pink-300">
                     <div className="w-full h-full px-10 pt-20 pb-20" >
                         <div className="border-8 border-white flex justify-center items-start w-full h-full" style={{"backgroundImage": "url('/c_1.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
@@ -33,7 +36,7 @@ export default function Homepage(){
                 </div>
                 <div className="col-span-2 h-full w-full bg-green-300">
                     <div className="w-full h-full px-10 pt-20 pb-20" >
-                        <div className="border-8 border-white flex justify-center items-end w-full h-full" style={{"backgroundImage": "url('/Hero.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
+                        <div className="border-8 border-white flex justify-center items-end w-full h-full" style={{"backgroundImage": "url('/Hero2.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
                             <div className=" text-3xl text-white font-bold mb-2">ELEVATED</div>
                         </div>
                     </div>
