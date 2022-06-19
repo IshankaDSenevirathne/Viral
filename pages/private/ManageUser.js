@@ -31,6 +31,7 @@ export default function ManagesUser({cookies}){
         cookie.remove("user");
         cookie.remove("token");
         cookie.remove("cart");
+        router.push("/");
       }
             if(user && cart){
             return <div>
@@ -130,9 +131,9 @@ export default function ManagesUser({cookies}){
                                                     <button onClick={()=>{setMobileTab(mobilePanels[2]);setSideNavOpen(false)}} className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <LogoutIcon className="h-6 w-6 mr-1" /> Reviews
                                                     </button>
-                                                    <button onClick={()=>{setMobileTab(mobilePanels[3]);setSideNavOpen(false)}} className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
+                                                    {/* <button onClick={()=>{setMobileTab(mobilePanels[3]);setSideNavOpen(false)}} className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <LogoutIcon className="h-6 w-6 mr-1" /> Account
-                                                    </button>
+                                                    </button> */}
                                                     <a href="/" className="flex w-fit items-center justify-center mb-5 rounded-md  text-gray-400  text-lg  hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <LogoutIcon className="h-6 w-6 mr-1" /> Store
                                                     </a>
@@ -157,9 +158,9 @@ export default function ManagesUser({cookies}){
                         </Dialog>
                     </Transition.Root>
                 </div>
-                <div className="hidden md:flex w-screen h-screen overflow-y-auto scrollbar bg-gray-100">
-                    <div className="grid grid-cols-12">
-                        <div className="md:col-span-3 lg:col-span-2 bg-gray-800">
+                <div className="hidden md:flex w-screen min-h-screen overflow-y-auto scrollbar bg-gray-100">
+                    <div className="grid grid-cols-12 w-full">
+                        <div className="z-10 w-full md:col-span-3 lg:col-span-2 bg-gray-800">
                             <div className="fixed grid grid-cols-12 top-0 left-0 w-screen">
                                 <div className="md:col-span-3 lg:col-span-2 flex flex-col w-full h-screen justify-between">
                                     <div className="grid grid-rows-8 w-full">
@@ -185,11 +186,11 @@ export default function ManagesUser({cookies}){
                                                         <TruckIcon className="h-6 w-6 mr-2" /> Reviews
                                                     </a>
                                             </div>
-                                            <div className="w-100 row-span-1">
+                                            {/* <div className="w-100 row-span-1">
                                                     <a onClick={()=>setDashboardTab(panels[3])} className="w-100 flex items-center justify-start py-2 pl-5 text-gray-400  md:text-xl xl:text-2xl hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <TruckIcon className="h-6 w-6 mr-2" /> Account
                                                     </a>
-                                            </div>
+                                            </div> */}
                                             <div className="w-100 row-span-1">
                                                     <a href="/" className="w-100 flex items-center justify-start py-2 pl-5 text-gray-400  md:text-xl xl:text-2xl hover:text-white cursor-pointer hover:bg-gray-700 duration-200 delay-10">
                                                         <TruckIcon className="h-6 w-6 mr-2" /> Store
@@ -235,16 +236,32 @@ export async function getServerSideProps(context) {
             },
         }
     }
-    if(session.user.userType && session.user.userType=="ADMIN"){
-        return{
-            redirect:{
-                permanent:false,
-                destination:"/private/ManageShop"
+    if(session){
+        if(session.user.userType && session.user.userType=="ADMIN"){
+            return{
+                redirect:{
+                    permanent:false,
+                    destination:"/private/ManageShop"
+                }
+            }
+        } else{
+            return {
+              props: {cookies,session}, // will be passed to the page component as props
             }
         }
-    }else{
-        return {
-          props: {cookies,session}, // will be passed to the page component as props
+    }
+    if(cookies.user){
+        if(cookies.user.userType && cookies.user.userType=="ADMIN"){
+            return{
+                redirect:{
+                    permanent:false,
+                    destination:"/private/ManageShop"
+                }
+            }
+        }else{
+            return {
+              props: {cookies,session}, // will be passed to the page component as props
+            }
         }
     }
   }

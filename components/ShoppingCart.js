@@ -11,6 +11,7 @@ import cookie from "js-cookie";
 
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import { useRouter } from "next/router";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -18,6 +19,7 @@ function classNames(...classes) {
 
 export default function ShoppingCart(){
     const [cart,setCart]=useState([]);
+    const router = useRouter();
     const [isCartOpen,setCartOpen] = useState(false);
     const {state,dispatch} = useContext(Store);
     const {cart:store_cart}=state;
@@ -42,20 +44,24 @@ export default function ShoppingCart(){
             setCart(store_cart)
         }
     },[store_cart,setCart])
-    const createCheckOutSession = async () => {
-        const stripe = await stripePromise;
+    const createCheckOutSession=()=>{
+        console.log("reroute")
+        router.push("/public/StripeAccess")
+    }
+    // const createCheckOutSession = async () => {
+    //     const stripe = await stripePromise;
         
-        const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
-          cart
-        });
-        const result = await stripe.redirectToCheckout({
-          sessionId: checkoutSession.data.id,
-        });
-        if (result.error) {
-          alert(result.error.message);
-          return;
-        }
-      };
+    //     const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
+    //       cart
+    //     });
+    //     const result = await stripe.redirectToCheckout({
+    //       sessionId: checkoutSession.data.id,
+    //     });
+    //     if (result.error) {
+    //       alert(result.error.message);
+    //       return;
+    //     }
+    //   };
     async function handleSaveOrder(){
 
         if(user){

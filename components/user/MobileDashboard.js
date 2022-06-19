@@ -10,10 +10,12 @@ import cookie from "js-cookie"
 import axios from "axios";
 import ProductCard from "../ProductCard";
 import { parseCookies } from 'nookies';
+import { useRouter } from "next/router";
 
 export default function MobileDashboard({user,cart}){
     const [totalPrice,setTotalPrice]=useState(0);
     const [savedOrders,setSavedOrders]=useState("");
+    const router = useRouter();
     const {state,dispatch} = useContext(Store);
     const {data:ordersData,isLoading:isLoadingOrders,error} = getUserOrdersData({userEmail:user.email});
     const {data:savedUserOrders,isLoading:isLoadingSavedOrders,errorSavedOrders} = getSavedOrdersData({userEmail:user.email});
@@ -25,20 +27,24 @@ export default function MobileDashboard({user,cart}){
     const store_cookie = cookies?.cart
                 ? JSON.parse(cookies.cart)
                 : []
-    const createCheckOutSession = async (cart) => {
-        const stripe = await stripePromise;
+    const createCheckOutSession=()=>{
+        console.log("reroute")
+        router.push("/public/StripeAccess")
+    }
+    // const createCheckOutSession = async (cart) => {
+    //     const stripe = await stripePromise;
         
-        const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
-          cart
-        });
-        const result = await stripe.redirectToCheckout({
-          sessionId: checkoutSession.data.id,
-        });
-        if (result.error) {
-          alert(result.error.message);
-          return;
-        }
-      };
+    //     const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
+    //       cart
+    //     });
+    //     const result = await stripe.redirectToCheckout({
+    //       sessionId: checkoutSession.data.id,
+    //     });
+    //     if (result.error) {
+    //       alert(result.error.message);
+    //       return;
+    //     }
+    //   };
     useEffect(()=>{
         if(savedUserOrders){
             setSavedOrders(savedUserOrders.data)

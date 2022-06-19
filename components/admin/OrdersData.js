@@ -1,7 +1,7 @@
 import {Tab } from '@headlessui/react'
 import {useState} from "react"
 import {UserIcon,PhoneIcon,AtSymbolIcon,ReplyIcon} from "@heroicons/react/solid"
-import {displayAdminOrdersData} from "../lib/fetchDataSWR"
+import {displayAdminOrdersData} from "../../lib/fetchDataSWR"
 
 function classNames(...classes){
     return classes.filter(Boolean).join(' ')

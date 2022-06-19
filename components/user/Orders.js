@@ -164,6 +164,11 @@ export default function Orders({user}){
                 </div>
                 
             </div>
+            {ordersData && ordersData.data.length==0 && <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col w-fit h-fit items-center justify-center p-10 rounded-md border border-gray-200">
+                    <h1 className="text-xl lg:text-3xl text-gray-400">You have not ordered anything yet!</h1>
+                </div>
+                </div>}
             {isOpen && product && orderId && <Review isOpen={isOpen} user={user} setIsOpen={setIsOpen} setProduct={setProduct} product={productSelected} orderId={orderId}/>}   
         </div>
     )

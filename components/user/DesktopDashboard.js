@@ -10,11 +10,12 @@ import cookie from "js-cookie"
 import axios from "axios";
 import ProductCard from "../ProductCard";
 import { parseCookies } from 'nookies';
-
+import { useRouter } from "next/router";
 
 export default function DesktopDashboard({user,cart}){
     const [totalPrice,setTotalPrice]=useState(0);
     const [savedOrders,setSavedOrders]=useState("");
+    const router = useRouter();
     const {state,dispatch} = useContext(Store);
     const {data:ordersData,isLoading:isLoadingOrders,error} = getUserOrdersData({userEmail:user.email});
     const {data:savedUserOrders,isLoading:isLoadingSavedOrders,errorSavedOrders} = getSavedOrdersData({userEmail:user.email});
@@ -26,20 +27,24 @@ export default function DesktopDashboard({user,cart}){
     const store_cookie = cookies?.cart
     ? JSON.parse(cookies.cart)
     : []
-    const createCheckOutSession = async (cart) => {
-        const stripe = await stripePromise;
+    const createCheckOutSession=()=>{
+        console.log("reroute")
+        router.push("/public/StripeAccess")
+    }
+    // const createCheckOutSession = async (cart) => {
+    //     const stripe = await stripePromise;
         
-        const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
-          cart
-        });
-        const result = await stripe.redirectToCheckout({
-          sessionId: checkoutSession.data.id,
-        });
-        if (result.error) {
-          alert(result.error.message);
-          return;
-        }
-      };
+    //     const checkoutSession = await axios.post('/api/checkout-sessions/create-stripe-session', {
+    //       cart
+    //     });
+    //     const result = await stripe.redirectToCheckout({
+    //       sessionId: checkoutSession.data.id,
+    //     });
+    //     if (result.error) {
+    //       alert(result.error.message);
+    //       return;
+    //     }
+    //   };
     useEffect(()=>{
         if(savedUserOrders){
             setSavedOrders(savedUserOrders.data)
@@ -179,9 +184,9 @@ export default function DesktopDashboard({user,cart}){
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white p-5 my-10 rounded-md shadow-md">
-                        <h1 className="text-gray-800 text-3xl font-bold mb-5">Whishlist</h1>
-                        <div className="">
+                    <div className="bg-white my-10 rounded-md shadow-md mx-5">
+                        <h1 className="text-gray-800 text-3xl font-bold p-5">Whishlist</h1>
+                        <div className="p-5">
                             {isLoadingfavourites ? <Spinner/>:""}
                             <div className="grid grid-cols-5 gap-0">
                                 {favourites && favourites.data.length!=0 &&
@@ -191,20 +196,18 @@ export default function DesktopDashboard({user,cart}){
                                 }
                             </div>
                             {!isLoadingfavourites && favourites.data.length==0 &&
-                                <div>
+                                <div className="text-gray-400 flex flex-col justify-center items-center w-full h-32 border border-dashed text-2xl">
                                     You have no items on your wishlist!
                                 </div>
                             }
                         </div>
                     </div>
-                    <div className="hidden md:block px-2 w-full ">
-                        <div className="w-full bg-gray-100 rounded-md my-2 md:min-h-screen lg:min-h-fit">
-                            <div  className="pt-5 shadow-md md:min-h-screen lg:min-h-fit rounded-md bg-white">
+                    <div className="bg-white my-10 rounded-md shadow-md mx-5 p-5">
+                                <div className="mb-5">
+                                    <h1 className="text-gray-800 text-left md:text-xl lg:text-3xl font-bold ">Your Shopping Cart</h1>
+                                </div>
                                 {(liveCart && liveCart.length!=0)?
                                     <div  className="h-fit flex flex-col">
-                                        <div className="">
-                                            <h1 className="text-gray-800 text-center md:text-xl lg:text-3xl font-bold ">Your Shopping Cart</h1>
-                                        </div>
                                         <div className="flex flex-col">
                                             <div className=" rounded-md p-2 ">
                                                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 p-2">
@@ -286,14 +289,15 @@ export default function DesktopDashboard({user,cart}){
                                         </div>
                                     </div>
                                     :
-                                    <div className="w-full h-full container rounded-md mx-auto bg-white shadow-md">
-                                        <h1 className="font-semibold flex items-center justify-center w-full h-full text-gray-300 text-3xl">You Shopping cart is currently empty!</h1>
+                                    <div className="text-gray-400 flex flex-col justify-center items-center h-48 border border-dashed text-2xl  bg-white">
+                                        You have no items in your cart!
                                     </div>
                                 }
-                            </div>
                         </div>
-                        <div  className="bg-white p-5 rounded-md shadow-md">
-                            <h1 className="text-gray-800 md:text-xl lg:text-3xl font-bold mb-5">Latest Order</h1>
+                        <div className="bg-white my-10 rounded-md shadow-md mx-5 p-5">
+                            <div className="mb-5">
+                                <h1 className="text-gray-800 text-left md:text-xl lg:text-3xl font-bold ">Your Latest Order</h1>
+                            </div>
                             <div className="mt-5">
                                 <div className="w-full">
                                     {isLoadingOrders || error
@@ -304,43 +308,50 @@ export default function DesktopDashboard({user,cart}){
                                             {ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderDetails.products.map((product,index) => (
                                             <div key={index}>
                                                 <div className="bg-gray-100 flex flex-col w-full shadow-sm rounded-md">
-                                                <Image src={product.productImage.url} width={400} height={400} objectFit="cover" className="rounded-t-md"/>
-                                                <div className="pt-2 px-2">
-                                                    <p className="md:text-sm lg:text-md text-gray-800">
-                                                    {product.productName}
-                                                    </p>
-                                                    <p className="md:text-xs lg:text-sm text-gray-400">
-                                                    By {product.productSize}
-                                                    </p>
-                                                    <div className="flex py-2 items-center gap-2">
-                                                        <div className="bg-red-500 rounded-2xl md:w-2 md:h-2 lg:w-4 lg:h-4"></div>
-                                                        <p className="md:text-xs lg:text-sm text-gray-800 ">M</p>
-                                                        <p className="md:text-xs lg:text-sm text-gray-800">
-                                                            {product.productPrice}<span className="text-blue-500 font-bold">$</span>
+                                                    <Image src={product.productImage.url} width={400} height={400} objectFit="cover" className="rounded-t-md"/>
+                                                    <div className="pt-2 px-2">
+                                                        <p className="md:text-sm lg:text-md text-gray-800">
+                                                        {product.productName}
                                                         </p>
+                                                        <p className="md:text-xs lg:text-sm text-gray-400">
+                                                        By {product.productSize}
+                                                        </p>
+                                                        <div className="flex py-2 items-center gap-2">
+                                                            <div className="bg-red-500 rounded-2xl md:w-2 md:h-2 lg:w-4 lg:h-4"></div>
+                                                            <p className="md:text-xs lg:text-sm text-gray-800 ">M</p>
+                                                            <p className="md:text-xs lg:text-sm text-gray-800">
+                                                                {product.productPrice}<span className="text-blue-500 font-bold">$</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-5">
+                                                    <div className="flex flex-col w-full">
+                                                        <div className="grid grid-cols-8 text-center items-center gap-2">
+                                                            <span className="bg-gray-800 p-2 mr-2 rounded-md col-span-2 w-full h-full">
+                                                                {ordersData && ordersData.data.length!=0 && <p className="text-gray-400 flex items-center justify-center font-bold md:text-xs lg:text-sm ">{ordersData.data[ordersData.data.length-1].createdAt.substring(0,10)}</p>}
+                                                                {ordersData && ordersData.data.length!=0 && <p className="font-bold md:text-xl lg:text-2xl text-white">{parseFloat(ordersData.data[ordersData.data.length-1].orderDetails.totalPrice*0.01).toFixed(2)}<span className="text-blue-500">$</span></p>}
+                                                            </span>
+                                                            <span className="bg-gray-800 p-2 rounded-md col-span-2 w-full h-full">{ordersData && ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderStatus=="Pending"?<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold md:text-xs lg:text-sm ">Getting Wrapped</p><GiftIcon className="h-10 w-10 text-yellow-500 " /></span>:<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold md:text-xs lg:text-sm ">Shipped</p><TruckIcon className="md:h-8 md:w-8 lg:h-10 lg:w-10 text-green-500 " /></span>}</span>
+                                                        </div>  
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     ))}
                                     </div>
                                     }
-                                </div>
-                            </div>
-                            <div className="mt-5">
-                                <div className="flex flex-col w-full">
-                                    <div className="grid grid-cols-8 text-center items-center gap-2">
-                                        <span className="bg-gray-800 p-2 mr-2 rounded-md col-span-2 w-full h-full">
-                                            {ordersData && ordersData.data.length!=0 && <p className="text-gray-400 flex items-center justify-center font-bold md:text-xs lg:text-sm ">{ordersData.data[ordersData.data.length-1].createdAt.substring(0,10)}</p>}
-                                            {ordersData && ordersData.data.length!=0 && <p className="font-bold md:text-xl lg:text-2xl text-white">{parseFloat(ordersData.data[ordersData.data.length-1].orderDetails.totalPrice*0.01).toFixed(2)}<span className="text-blue-500">$</span></p>}
-                                        </span>
-                                        <span className="bg-gray-800 p-2 rounded-md col-span-2 w-full h-full">{ordersData && ordersData.data.length!=0 && ordersData.data[ordersData.data.length-1].orderStatus=="Pending"?<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold md:text-xs lg:text-sm ">Getting Wrapped</p><GiftIcon className="h-10 w-10 text-yellow-500 " /></span>:<span className="flex flex-col items-center justify-center"><p className="text-gray-400 flex items-center justify-start font-bold md:text-xs lg:text-sm ">Shipped</p><TruckIcon className="md:h-8 md:w-8 lg:h-10 lg:w-10 text-green-500 " /></span>}</span>
-                                    </div>  
+                                {   ordersData && ordersData.data.length==0 &&
+                                    <div className="text-gray-400 flex flex-col justify-center items-center w-full h-48 border border-dashed text-2xl">
+                                        You have no Orders in place!
+                                    </div>
+                                }
                                 </div>
                             </div>
                         </div>
-                        <div className=" rounded-md shadow-md bg-white my-5">
-                                <h1 className="text-blue-500 bg-gray-800 rounded-t-md text-center p-5 md:text-xl lg:text-3xl font-bold ">Saved Orders</h1>
+                        <div className="bg-white my-10 rounded-md shadow-md mx-5 p-5 ">
+                                <div className="mb-5">
+                                    <h1 className="text-blue-500 text-left md:text-xl lg:text-3xl font-bold ">Saved Orders</h1>
+                                </div>
                                 <div className="">
                                     {isLoadingSavedOrders || errorSavedOrders?
                                         <Spinner className="w-full"/>
@@ -400,9 +411,13 @@ export default function DesktopDashboard({user,cart}){
                                         ))}
                                     </div>
                                     }
+                                    {savedOrders && savedOrders.length==0 &&
+                                    <div className="text-gray-400 flex flex-col justify-center items-center w-full h-48 border border-dashed text-2xl">
+                                        You have no saved orders
+                                    </div>
+                                    }
                                 </div>
                             </div>
-                    </div>
                 </div>
 
     )

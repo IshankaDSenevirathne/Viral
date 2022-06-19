@@ -1,9 +1,9 @@
 //swr data from db
-import {displayProducts} from "../lib/fetchDataSWR";
+import {displayProducts} from "../../lib/fetchDataSWR";
 import { useState,Fragment } from 'react'
 import {Transition,Dialog,Listbox,Tab } from '@headlessui/react'
 import Image from "next/image";
-import {AlertSuccess} from "./Alert";
+import {AlertSuccess} from "../utils/Alert";
 import {PlusIcon,CheckIcon,SelectorIcon,CogIcon,TrashIcon} from "@heroicons/react/solid"
 
 

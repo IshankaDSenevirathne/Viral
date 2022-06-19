@@ -2,11 +2,10 @@ import Image from "next/image"
 import {useState,Fragment,useContext,useEffect} from "react"
 import {Store} from "../lib/Store"
 import {Dialog,Transition,RadioGroup } from '@headlessui/react'
-import { AlertInfo } from "./Alert"
+import { AlertInfo,AlertWarning } from "./utils/Alert"
 import cookie from "js-cookie";
 import ReactStars from "react-rating-stars-component";
 import { parseCookies } from 'nookies';
-
 //hero icons
 import {ShoppingBagIcon,BadgeCheckIcon,HeartIcon} from "@heroicons/react/outline"
 import {HeartIcon as SolidHeartIcon} from "@heroicons/react/solid"
@@ -24,6 +23,7 @@ export default function ProductCard({id,page,name,price,images,features,company,
   const [productSize,setProductSize]=useState(sizes[0]);
   const [productQuantity,setProductQuantity]=useState(1);
   const [loginAlertState,setLoginAlertState]=useState(false);
+  const [cartLimitState,setCartLimitState]=useState(false);
 
 //   const [showImage,setShowImage] = useState(images)
     const cookies = parseCookies();
@@ -52,6 +52,10 @@ export default function ProductCard({id,page,name,price,images,features,company,
     },[state])
 
   function handleAddToCart(){
+    if(state.cart.length==7){
+        setCartLimitState(true)
+        return;
+    }
     dispatch({type:"ADD_TO_CART",payload:{id,name,company,price,quantity:productQuantity,size:productSize,color:productColor,imageURL:images[0].url}});
     setIsOpen(false);
     return;
@@ -107,9 +111,9 @@ export default function ProductCard({id,page,name,price,images,features,company,
             <div className={classNames(page=="new_trending"?"":"relative")}>
                 <button onClick={handleFavourite} className="z-10 w-fit h-fit bg-white/30 backdrop-blur-sm absolute top-0 right-0">
                     {productFavStatus?
-                        <SolidHeartIcon className="h-5 w-5 sm:h-8 sm:w-8 m-1 text-red-400 hover:text-white duration-300 delay-10" />
+                        <SolidHeartIcon className="h-5 w-5 sm:h-8 sm:w-8 m-1 text-red-400 hover:text-red-300 duration-300 delay-10" />
                             :
-                        <HeartIcon className="h-5 w-5 sm:h-5 sm:w-5 m-1 text-white hover:text-red-400 duration-300 delay-10" />
+                        <HeartIcon className="h-5 w-5 sm:h-5 sm:w-5 m-1 text-red-200 hover:text-red-400 duration-300 delay-10" />
                     }
                 </button>
                 <button onClick={()=>setIsOpen(true)}>
@@ -138,9 +142,9 @@ export default function ProductCard({id,page,name,price,images,features,company,
             <div className={classNames(page=="new_trending"?"":"relative")}>
                 <button onClick={handleFavourite} className="z-10 opacity-0 w-fit h-fit group-hover:opacity-100 group-hover:bg-white/30 delay-10 duration-300  group-hover:backdrop-blur-sm absolute top-0 right-0">
                     {productFavStatus?
-                        <SolidHeartIcon className="h-8 w-8 m-1 text-red-400 hover:text-white duration-300 delay-10" />
+                        <SolidHeartIcon className="h-8 w-8 m-1 text-red-400 hover:text-red-300 duration-300 delay-10" />
                             :
-                        <HeartIcon className="h-8 w-8 m-1 text-white hover:text-red-400 duration-300 delay-10" />
+                        <HeartIcon className="h-8 w-8 m-1 text-red-200 hover:text-red-400 duration-300 delay-10" />
                     }
                 </button>
                 <button onClick={()=>setIsOpen(true)}>
@@ -596,6 +600,7 @@ export default function ProductCard({id,page,name,price,images,features,company,
             </Transition>
         </div>
         {loginAlertState && <AlertInfo isOpen={loginAlertState} setIsOpen={setLoginAlertState}/>}
+        {cartLimitState && <AlertWarning isOpen={cartLimitState} info={"Cart Limit Exeeded!"} setIsOpen={setCartLimitState}/>}
     </div>
   )
 }

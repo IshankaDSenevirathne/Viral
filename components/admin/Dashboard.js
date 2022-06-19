@@ -1,4 +1,4 @@
-import {getAccountBalance} from "../lib/fetchDataSWR";
+import {getAccountBalance} from "../../lib/fetchDataSWR";
 import {useEffect} from "react";
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
