@@ -38,7 +38,7 @@ export default function ManageShop({cookies}){
                         <div className="flex items-center">
                             <img
                             className="h-10 w-auto md:h-12"
-                            src="/Logo.svg"
+                            src="/viral2.svg"
                             alt="Workflow"
                             />
                             <h1 className="text-white font-bold text-xl md:text-3xl">&nbsp;VIRAL</h1>
@@ -160,9 +160,9 @@ export default function ManageShop({cookies}){
                             <div className="fixed grid grid-cols-12 top-0 left-0 w-screen">
                                 <div className="md:col-span-3 lg:col-span-2 flex flex-col w-full h-screen justify-between">
                                     <div className="grid grid-rows-8 w-full">
-                                        <div className="w-full flex justify-center bg-blue-600 md:py-5 lg:py-10">
+                                        <div className="w-full flex justify-center bg-black md:py-5 lg:py-10">
                                             <a href="/" className="row-span-4">
-                                                    <Image src="/Logo.svg" height={60} width={60} objectFit="contain"/>
+                                                    <Image src="/viral.svg" height={100} width={300} objectFit="contain"/>
                                             </a >
                                         </div>
                                         <div className="flex flex-col">
