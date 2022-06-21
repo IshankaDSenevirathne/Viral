@@ -5,6 +5,7 @@ import { getLatestItems,getFavouriteItemData ,getTrendingItemData} from "../../l
 import Spinner from "../Spinner";
 import {useSession,getSession} from "next-auth/react"
 import { useEffect } from "react";
+import {TopBanner} from "./Banners"
 
 export default function NewTrending({cookies}){
     const {data:latestProducts,isLoading,error}= getLatestItems();
@@ -32,6 +33,7 @@ export default function NewTrending({cookies}){
                     <TrendingTop trendingItems={trending.data.slice(0,3)} user={user} favProducts={favourites.data.map((item)=>item.productId)}/>
                 </div>
             }
+            <TopBanner />
             {isLoading || error || isLoadingFavourites || errorfavourites || !favourites?
                 <div className="my-10">
                     <Spinner />
