@@ -18,7 +18,7 @@ export default function Hero(){
                                 <h1 className="md:text-5xl lg:text-7xl text-left font-bold">OWN</h1>
                                 <h1 className="md:text-5xl lg:text-7xl text-right font-bold">STYLE</h1>
                             </div>
-                            <div className="mt-20 flex justify-center">
+                            <div className="mt-20 flex justify-end">
                                 <button className="px-5 py-5 text-white font-bold md:text-xl lg:text-2xl border-b-4 border-b-white border-r-white text-blue-500 hover:bg-transparent hover:text-white border-r-4 hover:border-blue-500 duration-300 delay-10  flex justify-center items-center">START SHOPPING <ShoppingCartIcon className="ml-3 h-8 w-8" aria-hidden="true" /></button>
                             </div>
                         </div>
