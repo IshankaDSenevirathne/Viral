@@ -106,7 +106,7 @@ export default function ShoppingCart(){
     return (
             <div>
                 <div className="flex flex-col lg:hidden">
-                    <button className="relative text-gray-300 border-white border hover:text-blue-500 rounded-full p-2 hover:border-blue-500 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 focus:outline-none" onClick={()=>setCartOpen(true)}> 
+                    <button className="relative text-gray-800 border-gray-800 border hover:text-blue-500 rounded-full p-2 hover:border-blue-500 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 focus:outline-none" onClick={()=>setCartOpen(true)}> 
                         <ShoppingCartIcon className="h-5 w-5" aria-hidden="true" />
                         <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-blue-600 text-white rounded-full text-xs">{cart.length}</div></button>
                             <Transition appear show={isCartOpen} as={Fragment}>
@@ -199,7 +199,7 @@ export default function ShoppingCart(){
                 </div>
                 <Menu as="div" className="z-10 ml-3 relative hidden lg:flex">
                     <div className="">
-                    <Menu.Button className="relative text-gray-300 border-white border hover:text-blue-500 rounded-full p-2 hover:border-blue-500 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 focus:outline-none">
+                    <Menu.Button className="relative text-gray-800 border-gray-800 border hover:text-blue-500 rounded-full p-2 hover:border-blue-500 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 focus:outline-none">
                         <span className="sr-only">Shopping Cart</span>
                         <ShoppingCartIcon className="h-5 w-5" aria-hidden="true" />
                         <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-blue-600 text-white rounded-full text-xs">{cart.length}</div>

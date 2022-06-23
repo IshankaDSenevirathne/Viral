@@ -123,7 +123,7 @@ export default function UserLogin() {
           <div className="flex  ml-3  items-center">
               <div>
                 <div className="flex flex-col md:hidden">
-                    <button className="relative text-gray-300 border-white border hover:text-red-400 focus:outline-none rounded-full p-2 hover:border-red-400 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10" onClick={()=>setFavouritesOpen(true)}> 
+                    <button className="relative text-gray-800 border-gray-800 border hover:text-red-400 focus:outline-none rounded-full p-2 hover:border-red-400 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10" onClick={()=>setFavouritesOpen(true)}> 
                         <SolidHeartIcon className="h-5 w-5" aria-hidden="true" />
                         <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-red-400 text-white rounded-full text-xs">{favourites.length}</div></button>
                     <Transition appear show={isFavouritesOpen} as={Fragment}>
@@ -207,7 +207,7 @@ export default function UserLogin() {
                     </Transition>
                 </div>
                 <Menu as="div" className="z-10 relative hidden md:flex">
-                  <Menu.Button className="relative text-gray-300 border-white border hover:text-red-400 focus:outline-none rounded-full p-2 hover:border-red-400 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 ">
+                  <Menu.Button className="relative text-gray-800 border-gray-800 border hover:text-red-400 focus:outline-none rounded-full p-2 hover:border-red-400 font-semibold hover:bg-white hover:text-white text-sm duration-300 delay-10 ">
                       <span className="sr-only">Favourite Items</span>
                       <SolidHeartIcon className="h-5 w-5" aria-hidden="true" />
                       {favourites ? 
@@ -477,8 +477,8 @@ export default function UserLogin() {
   return (
     <div className="ml-3">
       <div className="flex gap-3">
-        <button className="py-2 px-4 text-gray-300 rounded-md font-semibold hover:bg-gray-700 hover:text-white text-sm duration-300 delay-10 " onClick={()=>setIsLoginOpen(true)}>Sign In</button>
-        <button className="py-2 px-4 text-gray-300 rounded-md font-semibold hover:bg-gray-700 hover:text-white text-sm duration-300 delay-10 " onClick={()=>setIsSignUpOpen(true)}>Sign Up</button>
+        <button className="py-2 px-4 text-gray-800 rounded-md border border-gray-800 font-semibold hover:border-blue-500 hover:text-blue-500 text-sm duration-300 delay-10 " onClick={()=>setIsLoginOpen(true)}>Sign In</button>
+        <button className="py-2 px-4 text-gray-800 rounded-md border border-gray-800 font-semibold hover:border-blue-500 hover:text-blue-500 text-sm duration-300 delay-10 " onClick={()=>setIsSignUpOpen(true)}>Sign Up</button>
       </div>
       <Transition appear show={isSignUpOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={()=>{setCredentialErrorMessage("");

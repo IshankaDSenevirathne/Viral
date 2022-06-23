@@ -12,7 +12,7 @@ export default function Hero(){
                 </div>
                 <div className="col-span-3 lg:col-span-2 bg-black bg-opacity-20 text-white w-full h-full" >
                     <div className="grid grid-rows-8 w-full h-full">
-                        <div className="row-span-4 bg-gray-800 w-full h-full" style={{"background":"linear-gradient(-60deg,#3b82f6 50%,#1f2937 50%)"}}></div>
+                        <div className="row-span-4  w-full h-full" ></div>
                         <div className="row-span-2 w-full h-full md:p-2 xl:p-10 ">
                             <div className="border-8 border-r-0 border-b-0 p-2 ">
                                 <h1 className="md:text-5xl lg:text-7xl text-left font-bold">MAKE</h1>
@@ -24,7 +24,7 @@ export default function Hero(){
                                 <button className="px-5 py-5 text-white font-bold md:text-xl lg:text-2xl border-b-4 border-b-white border-r-white text-blue-500 hover:bg-transparent hover:text-white border-r-4 hover:border-blue-500 duration-300 delay-10  flex justify-center items-center">START SHOPPING <ShoppingCartIcon className="ml-3 h-8 w-8" aria-hidden="true" /></button>
                             </div>
                         </div>
-                        <div className="row-span-2 w-full h-full bg-white" style={{"background":"linear-gradient(-60deg,#ffffff 50%,#3b82f6 50%)"}}></div>
+                        <div className="row-span-2 w-full h-full" ></div>
                     </div>
                 </div>
             </div>
