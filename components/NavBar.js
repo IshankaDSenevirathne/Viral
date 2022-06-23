@@ -19,7 +19,7 @@ export default function NavBar() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <Image
-                      src="/viral2.svg"
+                      src="/viral3.svg"
                       alt="Workflow"
                       height={50}
                       width={200}
