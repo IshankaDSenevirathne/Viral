@@ -57,7 +57,7 @@ export default function Footer(){
                 </div>
             </div>
             <div className="hidden md:flex md:flex-col ">
-                <div className="bg-gray-800 w-screen  border-b-2 border-gray-600 ">
+                <div className="bg-gray-800 w-full  border-b-2 border-gray-600 ">
                     <div className=" container mx-auto h-fit">
                         <div className=" container mx-auto grid grid-cols-6 max-w-screen-xl text-white font-semibold h-64 pt-10 gap-2 ">
                             <div className="col-span-1 flex flex-col justify-center items-center">

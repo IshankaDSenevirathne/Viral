@@ -5,6 +5,8 @@ import Footer from "../Footer"
 import NewTrending from "./NewTrending"
 import ViewProducts from "../ViewProducts"
 import Hero from "./Hero";
+import {TopBanner} from "./Banners"
+
 const categories = [
     {name:"Store Front",value:"New & Featured"},
     {name:"Shoes",value:"Shoes"},
@@ -24,7 +26,10 @@ export default function Homepage(){
     return(
         <div className="absolute overflow-y-auto top-0 left-0 ">
             <Hero />
-            <div className="w-screen mt-20 text-gray-800 font-semibold">
+            <div  className="pt-20">
+                <TopBanner/>
+            </div>
+            <div className="w-full mt-20 text-gray-800 font-semibold">
                 <Tab.Group defaultIndex={0}>
                     <Tab.List className="flex container mx-auto max-w-screen-lg">
                     {categories.map((category,index) => (

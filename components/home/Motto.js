@@ -1,6 +1,6 @@
 export default function Motto(){
     return (
-        <div className="w-screen h-fit px-5">
+        <div className="w-full h-fit px-5">
             <div className="container mx-auto flex flex-col md:grid md:grid-cols-6">
                 <div className="col-span-2 pr-5 border-r-4 flex flex-col justify-end items-end py-5 border-blue-500 font-sans text-gray-800 font-bold text-4xl md:text-5xl">
                     <div >You'r</div>

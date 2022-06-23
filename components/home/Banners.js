@@ -1,6 +1,6 @@
 export function TopBanner(){
     return (
-            <div className=" h-132 w-screen grid grid-cols-8 gap-0 hidden xl:grid">
+            <div className=" h-132 w-full grid grid-cols-8 gap-0 hidden xl:grid">
                 <div className="col-span-2 h-full w-full bg-pink-300">
                     <div className="w-full h-full px-10 pt-20 pb-20" >
                         <div className="border-8 border-white flex justify-center items-start w-full h-full" style={{"backgroundImage": "url('/banner1.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>

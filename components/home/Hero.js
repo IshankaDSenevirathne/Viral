@@ -3,7 +3,7 @@ import {ShoppingCartIcon} from "@heroicons/react/outline";
 
 export default function Hero(){
     return(
-        <div className="relative w-screen h-screen" style={{"backgroundImage": "url('/banner.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
+        <div className="relative w-full h-screen" style={{"backgroundImage": "url('/banner.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
             <video className="z-10 w-full h-full object-cover hidden md:block" autoPlay muted loop>
                 <source src="https://assets.mixkit.co/videos/preview/mixkit-air-moving-a-girls-hair-on-the-roof-of-a-36468-large.mp4" type="video/mp4"/>
             </video>
