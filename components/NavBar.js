@@ -21,7 +21,7 @@ export default function NavBar() {
                     <Image
                       src="/viral.svg"
                       alt="Workflow"
-                      height={80}
+                      height={60}
                       width={200}
                     />
                   </div>

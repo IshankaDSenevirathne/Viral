@@ -3,10 +3,12 @@ import {ShoppingCartIcon} from "@heroicons/react/outline";
 
 export default function Hero(){
     return(
-        <div className="w-screen h-screen" style={{"backgroundImage": "url('/banner.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
-            <div className="hidden lg:grid lg:grid-cols-8 w-full h-full">
+        <div className="relative w-screen h-screen" style={{"backgroundImage": "url('/banner.jpg')","backgroundSize":"cover","backgroundPosition":"top"}}>
+            <video className="z-10 w-full h-full object-cover hidden md:block" autoPlay muted loop>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-air-moving-a-girls-hair-on-the-roof-of-a-36468-large.mp4" type="video/mp4"/>
+            </video>
+            <div className="z-20 absolute top-0 left-0 hidden bg-black/30 lg:grid lg:grid-cols-8 w-full h-full">
                 <div className="md:col-span-5" >
-
                 </div>
                 <div className="col-span-3 lg:col-span-2 bg-black bg-opacity-20 text-white w-full h-full" >
                     <div className="grid grid-rows-8 w-full h-full">
@@ -26,7 +28,7 @@ export default function Hero(){
                     </div>
                 </div>
             </div>
-            <div className="lg:hidden flex flex-col justify-end items-center w-full h-full">
+            <div className="z-20 absolute top-0 left-0 lg:hidden flex flex-col justify-end items-center w-full h-full">
                 <div className="bg-black bg-opacity-20 text-white w-full h-fit" >
                     <div className="grid grid-cols-2 w-full h-full">
                         <div className="p-5">

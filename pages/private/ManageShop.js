@@ -5,7 +5,7 @@ import {Dashboard,SettingsData} from "../../components/admin/Dashboard"
 import {ShopData} from "../../components/admin/ShopData"
 import {OrdersData} from "../../components/admin/OrdersData"
 import cookie from "js-cookie";
-import {TruckIcon,CogIcon,MenuIcon,ChartPieIcon,XIcon,DatabaseIcon, LogoutIcon,ShoppingBagIcon,CreditCardIcon} from '@heroicons/react/outline'
+import {TruckIcon,MenuIcon,ChartPieIcon,XIcon,DatabaseIcon, LogoutIcon} from '@heroicons/react/outline'
 import {Dialog,Transition } from '@headlessui/react'
 import {useRouter} from "next/router";
 
