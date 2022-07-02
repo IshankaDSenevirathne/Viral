@@ -307,7 +307,7 @@ export default function ProductCard({id,page,name,price,images,features,company,
                                                                         </div>
                                                                 </RadioGroup>   
                                                             </div>
-                                                            <div className="pb-5">
+                                                            <div className="pb-5 ">
                                                                 <h1 className="text-xl text-gray-500">
                                                                     Size 
                                                                 </h1>
@@ -508,7 +508,7 @@ export default function ProductCard({id,page,name,price,images,features,company,
                                                                 </h1>
                                                                 <RadioGroup value={productSize.size} onChange={setProductSize} className="mt-4">
                                                                     <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                                                        <div className="grid grid-cols-4 gap-6">
+                                                                        <div className="grid grid-cols-4 gap-6  pr-5 w-full">
                                                                             {sizes.map(({size,availability},index) => (
                                                                                 <RadioGroup.Option
                                                                                 key={index}
