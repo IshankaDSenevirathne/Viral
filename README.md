@@ -12,4 +12,4 @@
 - Handle payments online with Stripe.
 -  Available as a PWA.
 -  Accept or Deny Orders as store owner
--
+
