@@ -1,5 +1,5 @@
 # Viral Designs
-<img src="https://raw.githubusercontent.com/IshankaDSenevirathne/Viral/blob/main/public/viral3.svg" width="40%" align="center" >
+<img src="https://raw.githubusercontent.com/IshankaDSenevirathne/Viral/main/public/viral3.svg" width="40%" align="center" >
 ## Features
 - Sign Up/Login with credentials/Google Auth.
 - Add products as favorites and create wish lists.
