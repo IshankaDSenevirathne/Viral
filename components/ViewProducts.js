@@ -3,6 +3,7 @@ import ProductCard from './ProductCard.js'
 import {useSession,getSession} from "next-auth/react"
 //data from database
 import {displayProducts,getFavouriteItemData} from '../lib/fetchDataSWR';
+import Spinner from './Spinner.js';
 
 const calculateRating=(total_rating,total_rates)=>{
   if(total_rates==0){
@@ -23,11 +24,11 @@ export default function ViewProducts({cookies,category}) {
   : ""
   const {data:favourites,isLoadingFavourites,errorfavourites}= getFavouriteItemData({userEmail:user.email})
       return (
-        <div className="flex flex-col mt-10">
-          <div className= "justify-center items-center">
+        <div className="w-full flex flex-col mt-10 justify-center items-center">
+          <div className= "">
               <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 md:grid-cols-5 relative">
-                {error ||errorfavourites && <p>An error has occured</p>}
-                {isLoading || isLoadingFavourites && <p>Please wait loading products...</p>}
+                {error ||errorfavourites && <Spinner />}
+                {(isLoading || isLoadingFavourites) && <Spinner />}
                 {(favourites && products) && products.data.map((product,index)=><ProductCard key={index} favStatus={()=>{
                   const favProductIds= favourites.data.map((item)=>item.productId);
                   const status=favProductIds.includes(product._id);
@@ -38,6 +39,7 @@ export default function ViewProducts({cookies,category}) {
       </div>
     )
 }
+
 export async function getServerSideProps(context) {
   const {cookies}= context.req
   const {category} = context.params

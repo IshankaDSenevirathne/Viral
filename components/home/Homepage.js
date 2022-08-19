@@ -24,7 +24,7 @@ function classNames(...classes){
 export default function Homepage(){
 
     return(
-        <div className="absolute overflow-y-auto top-0 left-0 ">
+        <div className="w-full absolute overflow-y-auto top-0 left-0 ">
             <Hero />
             <div  className="pt-0">
                 <TopBanner/>
